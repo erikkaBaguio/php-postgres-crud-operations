@@ -4,5 +4,6 @@
 	
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
 	
-	echo create_patient_table();	
+	echo create_patient_table();
+	echo add_patient([]);
 ?>
