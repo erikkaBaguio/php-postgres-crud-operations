@@ -1,27 +1,35 @@
 <?php
 	include 'includes/functions/db.func.php';
 	include 'includes/functions/patient.func.php';
-	
+
+
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
 	$add_result = "";
+	$info  = [];
 	$fname = "";
 	$lname = "";
-
 
 	# Add patient
 	if(isset($_POST["btn-add"]))
 	{
-		$add_result_msg = add_patient($_POST);
-		$add_result = intval($add_result_msg);
+
+		$add_result = add_result($_POST);
+		$add_result = intval($add_add_result);
+
 		if(intval($add_result == 0)){
-			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result_msg .'</div>';
+			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result .'</div>';
 		}else{
 			$add_result = '<div class="alert alert-success" role="alert">Added patient successfully!</div>';
 		}
 	}
 
+	# Get patient info/detail
+	if (isset($_GET['id']) && $_GET['id'] != ""){
+		$id = intval($_GET['id']);
+		$info = get_patient_info($id);
+	} 
 
-	# Search patient
+    # Search patient
     if(isset($_GET['fname'])){
     	$fname = trim($_GET['fname']);
     }
@@ -32,7 +40,6 @@
     # Get all patient
 	$patients = search_patients($_GET);
 	$display_patients = 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +89,7 @@
 							<th><?php echo $value['id'] ?></th>
 				            <td><?php echo $value['fname'] .' '. $value['mname'] .' '. $value['lname']; ?></td>
 				            <td><?php echo $value['age']; ?></td>
-				            <td><a href="includes/html/patient.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
+				            <td><a href="includes/html/patients.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
 						</tr>
 						<?php
 							}
@@ -91,7 +98,7 @@
 				</table>	
         	</div>
         </div>
-		<?php include 'includes/html/patient.add.inc.php';?>
+		<?php include 'includes/html/patients.add.inc.php';?>
 	</div>
 	     
 	     
