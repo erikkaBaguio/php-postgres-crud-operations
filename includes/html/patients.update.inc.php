@@ -21,6 +21,13 @@
 			$update_result = '<div class="alert alert-danger" role="alert">Update failed. '.$update_result.'</div>';
 		}
 	}
+
+
+	# Get patient info/detail
+	if (isset($_GET['id']) && $_GET['id'] != ""){
+		$id = intval($_GET['id']);
+		$info = get_patient_info($id);
+	} 
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,9 +45,6 @@
 	<div class="container">
 		<br>
 		<br>
-		<div class="page-header">
-            <h1>Update Patient</h1>
-        </div>
         <div class="row">
         	<div class="col-sm-12">
 	        	<div class="jumbotron">
@@ -84,7 +88,8 @@
 					</div>
 					<div class="form-group row">
 						<div class="offset-sm-3 col-sm-9">
-								<input type="submit" value="Update" name="btn-update" class="btn btn-primary" />
+							<input type="submit" value="Update" name="btn-update" class="btn btn-primary" />
+							<span><a href="<?php include '../../index.php';?>" class="btn btn-success m-r-1em">Back</a></span>
 						</div>
 					</div>
 				</form>			

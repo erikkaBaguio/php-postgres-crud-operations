@@ -1,26 +1,31 @@
 <?php
 	include 'includes/functions/db.func.php';
 	include 'includes/functions/patient.func.php';
-	
+
+
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
 	$add_result = "";
+	$update_result = "";
+	$info  = [];
 	$fname = "";
 	$lname = "";
-
 
 	# Add patient
 	if(isset($_POST["btn-add"]))
 	{
-		$add_result_msg = add_patient($_POST);
-		$add_result = intval($add_result_msg);
+
+		$add_result = add_result($_POST);
+		$add_result = intval($add_add_result);
+
 		if(intval($add_result == 0)){
-			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result_msg .'</div>';
+			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result .'</div>';
 		}else{
 			$add_result = '<div class="alert alert-success" role="alert">Added patient successfully!</div>';
 		}
 	}
 
-	# Search patient
+
+    # Search patient
     if(isset($_GET['fname'])){
     	$fname = trim($_GET['fname']);
     }
@@ -31,7 +36,6 @@
     # Get all patient
 	$patients = search_patients($_GET);
 	$display_patients = 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +94,7 @@
 				</table>	
         	</div>
         </div>
-		<?php include 'includes/html/patient.add.inc.php';?>
+		<?php include 'includes/html/patients.add.inc.php';?>
 	</div>
 	     
 	     

@@ -98,10 +98,36 @@
 	}
 
 
+	function get_patient_info($id=0)
+	# Author: Ma. Erikka M. Baguio
+	# Date created: July 20, 2018
+	# Date modified: July 20, 2018
+	{
+		global $dbConn;
+		$debug = 0;
+		$sql = "SELECT * FROM patient WHERE id=".intval($id);
+		if($debug){ echo $sql."<br>"; }
+
+		$result = pg_query($dbConn, $sql);	
+
+		if (!$result) {
+		    return pg_last_error($dbConn);
+		}
+		if (pg_num_rows($result) == 0) {
+			return "Record not found.";
+		} else {
+			$result = pg_fetch_object($result);
+			if($debug){ print_r($result); }
+		}
+
+		return $result;
+	}
+
+
 	function search_patients($data=[])
 	# Author: Ma. Erikka M. Baguio
-	# Date created: July 18, 2018
-	# Date modified: July 19, 2018
+	# Date created: July 20, 2018
+	# Date modified: July 20, 2018
 	{
 		global $dbConn;
 		$result = [];
