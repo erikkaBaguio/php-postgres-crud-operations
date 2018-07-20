@@ -97,4 +97,55 @@
 		}				
 	}
 
+
+	function update_patient($data)
+	# Author: Ma. Erikka M. Baguio
+	# Date created: July 20, 2018
+	# Date modified: July 20, 2018
+	{
+		global $dbConn;
+		$result = [];
+		$debug  = 0;
+
+		if($debug){
+			print("DEBUG => update_patient()<br> Data:" ); 
+			print_r($data); 
+			echo "<br>";
+		}
+
+		// input validation
+		if(empty($data)){
+			return "ERROR: Empty patient data.";
+		}
+		if(!isset($data["fname"]) || $data["fname"]==''){
+			return "ERROR: Fname Not Found.";
+		}
+		if(!isset($data["mname"]) || $data["mname"]==''){
+			return "ERROR: Mname Not Found.";
+		}
+		if(!isset($data["lname"]) || $data["lname"]==''){
+			return "ERROR: Lname Not Found.";
+		}
+		if(!isset($data["age"]) || $data["age"]==''){
+			return "ERROR: Age Not Found.";
+		}
+		if(!isset($data["id"]) || $data["id"]==''){
+			return "ERROR: ID Not Found.";
+		}
+
+
+		// query
+		$sql ="	UPDATE patient 
+				SET fname='{$data["fname"]}', mname='{$data["mname"]}', lname='{$data["lname"]}', age={$data["age"]} 
+				WHERE id = {$data["id"]}";
+		if($debug){ die($sql); }
+		$result = pg_query($dbConn, $sql);
+
+		if($result){
+			return $result;
+		} else {
+			return pg_last_error($dbConn);
+		}
+	}
+
 ?>
