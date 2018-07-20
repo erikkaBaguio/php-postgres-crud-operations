@@ -97,4 +97,49 @@
 		}				
 	}
 
+
+	function search_patients($data=[])
+	# Author: Ma. Erikka M. Baguio
+	# Date created: July 18, 2018
+	# Date modified: July 19, 2018
+	{
+		global $dbConn;
+		$result = [];
+		$debug = 0;
+		$sql = "SELECT * FROM patient WHERE true ";
+
+		if($debug){
+			print_r($data);
+		}
+
+		if(!empty($data)){
+			if(!empty($data['fname'])){
+				$sql .= " AND fname iLIKE '%".$data['fname']."%' ";
+			}
+
+			if(!empty($data['lname'])){
+				$sql .= " AND lname iLIKE '%".$data['lname']."%' ";
+			}
+
+		}
+
+		$sql .= " ORDER BY id DESC";
+
+		if($debug){
+			die($sql); 
+		}
+
+		$result = pg_query($dbConn, $sql);
+
+		if (pg_num_rows($result) == 0) {
+			return $result;
+		}
+
+		if ($result) {
+			return pg_fetch_all($result);
+		} else {
+			return pg_last_error($dbConn);
+		}	 
+	}
+
 ?>
