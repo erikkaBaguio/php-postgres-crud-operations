@@ -4,25 +4,9 @@
 
 
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
-	$add_result = "";
-	$update_result = "";
 	$info  = [];
 	$fname = "";
 	$lname = "";
-
-	# Add patient
-	if(isset($_POST["btn-add"]))
-	{
-
-		$add_result = add_result($_POST);
-		$add_result = intval($add_add_result);
-
-		if(intval($add_result == 0)){
-			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result .'</div>';
-		}else{
-			$add_result = '<div class="alert alert-success" role="alert">Added patient successfully!</div>';
-		}
-	}
 
 
     # Search patient
@@ -67,7 +51,7 @@
 				 
 				    <button type="submit" class="btn btn-primary mb-2" name="btn-search">Search</button>
 				</form>
-				<p>Records found: <?php echo count($patient); ?></p>
+				<p>Records found: <?php echo count($patients); ?></p>
         		<table class="table table-hover">
 					<thead>
 						<tr>
@@ -75,6 +59,7 @@
 							<th scope="col">Name</th>
 							<th scope="col">Age</th>
 							<th scope="col">Action</th>
+							<th scope="col"><a href="includes/html/patients.add.inc.php" class="btn btn-success m-r-1em">Add Patient</a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -86,6 +71,7 @@
 				            <td><?php echo $value['fname'] .' '. $value['mname'] .' '. $value['lname']; ?></td>
 				            <td><?php echo $value['age']; ?></td>
 				            <td><a href="includes/html/patients.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
+				            <td></td>
 						</tr>
 						<?php
 							}
@@ -94,7 +80,6 @@
 				</table>	
         	</div>
         </div>
-		<?php include 'includes/html/patients.add.inc.php';?>
 	</div>
 	     
 	     

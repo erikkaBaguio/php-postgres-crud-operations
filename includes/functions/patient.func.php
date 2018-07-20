@@ -158,7 +158,7 @@
 		$result = pg_query($dbConn, $sql);
 
 		if (pg_num_rows($result) == 0) {
-			return $result;
+			return "Record not found.";
 		}
 
 		if ($result) {
