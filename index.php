@@ -20,7 +20,6 @@
 		}
 	}
 
-
 	# Search patient
     if(isset($_GET['fname'])){
     	$fname = trim($_GET['fname']);
@@ -82,7 +81,7 @@
 							<th><?php echo $value['id'] ?></th>
 				            <td><?php echo $value['fname'] .' '. $value['mname'] .' '. $value['lname']; ?></td>
 				            <td><?php echo $value['age']; ?></td>
-				            <td><a href="includes/html/patient.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
+				            <td><a href="includes/html/patients.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
 						</tr>
 						<?php
 							}
