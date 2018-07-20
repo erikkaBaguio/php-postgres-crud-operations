@@ -204,6 +204,13 @@
 			return "ERROR: ID Not Found.";
 		}
 
+
+		#for sanitation to prevent SQL Injection
+		$data["fname"] = sanitize_str($data["fname"]);
+		$data["mname"] = sanitize_str($data["mname"]);
+		$data["lname"] = sanitize_str($data["lname"]);
+		$data["age"] = intval($data["age"]);
+
 		// query
 		$sql ="	UPDATE patient 
 				SET fname='{$data["fname"]}', mname='{$data["mname"]}', lname='{$data["lname"]}', age={$data["age"]} 
@@ -211,10 +218,11 @@
 		if($debug){ die($sql); }
 		$result = pg_query($dbConn, $sql);
 
+		// echo $result;
 		if($result){
 			return $result;
 		} else {
-			return pg_last_error($dbConn);
+			return pg_last_error($dbConn);	
 		}
 	}
 

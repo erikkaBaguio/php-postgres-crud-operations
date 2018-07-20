@@ -89,7 +89,7 @@
 					<div class="form-group row">
 						<div class="offset-sm-3 col-sm-9">
 							<input type="submit" value="Update" name="btn-update" class="btn btn-primary" />
-							<span><a href="<?php include '../../index.php';?>" class="btn btn-success m-r-1em">Back</a></span>
+							<span><a href="../../index.php" class="btn btn-success m-r-1em">Back</a></span>
 						</div>
 					</div>
 				</form>			
