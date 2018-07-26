@@ -1,13 +1,24 @@
 <?php
 	include 'includes/functions/db.func.php';
 	include 'includes/functions/patient.func.php';
-
-
+	
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
 	$info  = [];
 	$fname = "";
 	$lname = "";
+	$add_result =0;
 
+	# Add patient
+	if(isset($_POST["btn-add"]))
+	{
+		$add_result_msg = add_patient($_POST);
+		$add_result = intval($add_result_msg);
+		if(intval($add_result == 0)){
+			$add_result = '<div class="alert alert-danger" role="alert">'. $add_result_msg .'</div>';
+		}else{
+			$add_result = '<div class="alert alert-success" role="alert">Added patient successfully!</div>';
+		}
+	}
 
     # Search patient
     if(isset($_GET['fname'])){
@@ -20,6 +31,8 @@
     # Get all patient
 	$patients = search_patients($_GET);
 	$display_patients = 0;
+
+	
 ?>
 
 <!DOCTYPE html>
@@ -38,48 +51,14 @@
 	<div class="container">
 		<br>
 		<br>
-		<div class="page-header">
-            <h1>Patients</h1>
-        </div>
-        <div class="row">
-        	<div class="col-sm-12">
-        		<form class="form-inline" action="" method="GET">
-				    <label class="sr-only" for="fname">First Name</label>
-				    <input type="text" class="form-control mb-2 mr-sm-2" id="fname" name="fname" value="<?php echo $fname; ?>" placeholder="Firstname...">
-				    <label class="sr-only" for="lname">Last Name</label>
-				    <input type="text" class="form-control mb-2 mr-sm-2" id="lname" name="lname" value="<?php echo $lname; ?>" placeholder="Latname..">
-				 
-				    <button type="submit" class="btn btn-primary mb-2" name="btn-search">Search</button>
-				</form>
-				<p>Records found: <?php echo count($patients); ?></p>
-        		<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Name</th>
-							<th scope="col">Age</th>
-							<th scope="col">Action</th>
-							<th scope="col"><a href="includes/html/patients.add.inc.php" class="btn btn-success m-r-1em">Add Patient</a></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php 
-					        foreach ($patients as $key => $value) {
-					    ?>
-						<tr>
-							<th><?php echo $value['id'] ?></th>
-				            <td><?php echo $value['fname'] .' '. $value['mname'] .' '. $value['lname']; ?></td>
-				            <td><?php echo $value['age']; ?></td>
-				            <td><a href="includes/html/patients.update.inc.php?id=<?php echo $value['id']; ?>" class="btn btn-info m-r-1em">Update</a></td>
-				            <td></td>
-						</tr>
-						<?php
-							}
-						?>
-					</tbody>
-				</table>	
-        	</div>
-        </div>
+		<!-- <div class="jumbotron"> -->
+			<div class="row">
+				<?php include 'includes/html/patients.add.inc.php';?>
+				<?php include 'includes/html/patients.search.inc.php';?>
+				
+			</div>
+							
+		<!-- </div> -->
 	</div>
 	     
 	     

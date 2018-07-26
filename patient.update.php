@@ -1,9 +1,9 @@
 <?php
-	include '../functions/db.func.php';
-	include '../functions/patient.func.php';
+	include 'includes/functions/db.func.php';
+	include 'includes/functions/patient.func.php';
 	
 	$dbConn = dbConnect("host=localhost dbname=hms user=postgres password=password");
-	$add_result = "";
+	$update_result = "";
 	$fname = "";
 	$lname = "";
 	
@@ -36,9 +36,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>PHP CRUD</title>
-  <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../bootstrap/dist/css/custom.css">
+  <title>Update Patient</title>
+  <link rel="stylesheet" href="includes/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="includes/bootstrap/dist/css/custom.css">
 </head>
  
 <body>
@@ -89,7 +89,7 @@
 					<div class="form-group row">
 						<div class="offset-sm-3 col-sm-9">
 							<input type="submit" value="Update" name="btn-update" class="btn btn-primary" />
-							<span><a href="../../index.php" class="btn btn-success m-r-1em">Back</a></span>
+							<span><a href="index.php" class="btn btn-success m-r-1em">Back</a></span>
 						</div>
 					</div>
 				</form>			
