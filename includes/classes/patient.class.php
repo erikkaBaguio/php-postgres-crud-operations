@@ -1,8 +1,6 @@
 <?php 
-	include 'includes/functions/db.func.php';
-	include 'includes/classes/customer.interface.inc.php';
 	
-	class Patient extends Customer
+	class Patient
 	{
 		var $id = 0;
 		var $fname = 'defaultknj';
