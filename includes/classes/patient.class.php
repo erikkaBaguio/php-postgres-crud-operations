@@ -1,6 +1,8 @@
 <?php 
+	include 'includes/functions/db.func.php';
+	include 'includes/classes/customer.interface.inc.php';
 	
-	class Patient
+	class Patient extends Customer
 	{
 		var $id = 0;
 		var $fname = 'defaultknj';
@@ -184,7 +186,7 @@
 			// query
 			$sql ="	UPDATE patient 
 					SET fname='{$data["fname"]}', mname='{$data["mname"]}', lname='{$data["lname"]}', age={$data["age"]} 
-					WHERE id = {$data["id"]}";
+					WHE RE id = {$data["id"]}";
 			if($debug){ die($sql); }
 			$result = pg_query($this->conn, $sql);
 
@@ -195,5 +197,44 @@
 				return pg_last_error($this->conn);	
 			}
 		}
+
+		function msg()
+		{
+			echo "<br> success! <br>";
+			var_dump($this->conn);
+		}
+
+		private function msg2()
+		{
+			echo "<br> success private! <br>";
+			var_dump($this->conn);
+		}
+
+		protected function msg3()
+		{
+			echo "<br> success protected! <br>";
+			var_dump($this->conn);
+		}
+
+		// static function msg4()
+		// {
+		// 	$result = "<br> success protected! <br>";
+		// 	return $result;
+		// 	// var_dump($this->conn);
+		// }
+
+		// function add_customer() {
+		// 	echo "add Customer<br>";
+		// }
+		// function add_transaction() {
+		// 	echo "add Transaction<br>";
+		// }
+		function add_bill() {
+			echo "add Bill<br>";
+		}
+
+		// function test(Customer $customer) {
+		// 	$customer->add_customer();
+		// }extends 
 	}
 ?>
